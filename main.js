@@ -102,6 +102,12 @@ var AppComponent = /** @class */ (function () {
             'editor': _views__WEBPACK_IMPORTED_MODULE_1__["ViewEditorComponent"] // src/views/view-editor/
         };
     }
+    /*
+    @HostListener('window:beforeunload', [ '$event' ])
+    beforeUnloadHander(event) {
+        event.returnValue = true;
+    }
+    */
     AppComponent.prototype.ngOnInit = function () {
         this.activeView = 'gallery';
         this.updateView('gallery');
@@ -968,7 +974,7 @@ var ConsoleViewerComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'console-viewer',
             template: "<textarea>{{ text || \"\" }}</textarea>",
-            styles: ["\n  :host{\n    height: 100%;\n    width: 100%;\n  }\n  textarea{\n    height: 99%;\n    width: 99%;\n    overflow: auto;\n    resize: none;\n    background-color: rgb(220,220,220);\n    text-color: rgb(80,80,80);\n    border: none;\n  }"]
+            styles: [__webpack_require__(/*! ./general-viewer.scss */ "./src/app/mViewer/viewers/general-viewer.scss")]
         }),
         __metadata("design:paramtypes", [])
     ], ConsoleViewerComponent);
@@ -976,6 +982,17 @@ var ConsoleViewerComponent = /** @class */ (function () {
 }());
 
 
+
+/***/ }),
+
+/***/ "./src/app/mViewer/viewers/general-viewer.scss":
+/*!*****************************************************!*\
+  !*** ./src/app/mViewer/viewers/general-viewer.scss ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\n  height: 100%;\n  width: 100%; }\n\ntextarea {\n  height: 99%;\n  width: 99%;\n  overflow: auto;\n  resize: none;\n  font-family: sans-serif;\n  background-color: gainsboro;\n  color: #505050;\n  border: none; }\n\ndiv {\n  font-family: sans-serif;\n  color: #505050;\n  width: 100%;\n  padding-left: 10px; }\n\nh5 {\n  font-weight: 700;\n  font-size: 12px; }\n\n.funcDesc {\n  font-weight: 600; }\n\n.paramP {\n  padding-left: 5px; }\n\nspan {\n  font-weight: 550;\n  font-style: italic; }\n"
 
 /***/ }),
 
@@ -1023,9 +1040,6 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var ProcedureHelpComponent = /** @class */ (function () {
     function ProcedureHelpComponent() {
     }
-    ProcedureHelpComponent.prototype.ngAfterViewInit = function () {
-        console.log(this.output);
-    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Object)
@@ -1035,7 +1049,7 @@ var ProcedureHelpComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'procedure-help',
             template: "\n  <div *ngIf='output'>\n    <h2>{{output.name}}</h2>\n    <h4>Module: <span>{{output.module}}</span></h4>\n    <h5><span>Description:</span></h5>\n    <p>{{output.description}}</p>\n    <h5 *ngIf='output.parameters?.length > 0'><span>Parameters: </span></h5>\n    <p class='paramP' *ngFor='let param of output.parameters'><span>{{param.name}} - </span>{{param.description}}</p>\n    <h5 *ngIf='output.returns'>Returns:</h5>\n    <p *ngIf='output.returns'>{{output.returns}}</p>\n  </div>\n\n\n  ",
-            styles: ["\n$prod-background-color: rgb(250,250,250);\n$background-color: rgb(220,220,220);\n$title-background: #ccc;\n$text-color: rgb(80,80,80);\n$selected-color: rgb(0,0,150);\n$function-text-color: rgb(190, 140, 30);\n$separator: rgb(239,239,239);\n\n:host{\n  height: 100%;\n  width: 100%;\n}\ndiv{\n  width: 100%;\n  padding-left:10px;\n}\nh5{\n  font-weight: 700;\n  font-size: 12px;\n}\np{\n  font-family: sans-serif;\n}\n.funcDesc{\n  font-weight: 600;\n}\n\n.paramP{\n  padding-left: 5px;\n\n}\n\nspan{\n  font-weight: 550;\n  font-style: italic;\n}\n\n"]
+            styles: [__webpack_require__(/*! ./general-viewer.scss */ "./src/app/mViewer/viewers/general-viewer.scss")]
         }),
         __metadata("design:paramtypes", [])
     ], ProcedureHelpComponent);
@@ -1115,7 +1129,7 @@ var TextViewerComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'text-viewer',
             template: "<textarea>{{ output || \"no-value\" }}</textarea>",
-            styles: ["\n  :host{\n    height: 100%;\n    width: 100%;\n  }\n  textarea{\n    height: 99%;\n    width: 99%;\n    overflow: auto;\n    resize: none;\n    background-color: rgb(220,220,220);\n    text-color: rgb(80,80,80);\n    border: none;\n    font-family: arial;\n  }"]
+            styles: [__webpack_require__(/*! ./general-viewer.scss */ "./src/app/mViewer/viewers/general-viewer.scss")]
         }),
         __metadata("design:paramtypes", [])
     ], TextViewerComponent);
@@ -1228,7 +1242,7 @@ var EdgeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id = 'flowchart-main-container' class='container'>\r\n\r\n    <!-- svg component -->\r\n    <svg id=\"svg-canvas\" class = \"svgCanvas\" viewBox=\"0 0 1500 1500\" \r\n    (mousedown)='panStart($event)'\r\n    (mousemove)='handleMouseMove($event)'  \r\n    (mouseup)='handleMouseUp($event)'\r\n    (mouseenter)='activateKeyEvent()'\r\n    (mouseleave)='deactivateKeyEvent()'\r\n    (wheel)='scale($event)'\r\n    >\r\n        <!-- definitions for svg: grid patterns, arrow head for connecting wire-->\r\n        <defs>\r\n            <!-- grid pattern -->\r\n            <pattern id=\"smallGrid\" width=\"20\" height=\"20\" patternUnits=\"userSpaceOnUse\">\r\n              <path d=\"M 20 0 L 0 0 0 20\" fill=\"none\" stroke=\"gray\" stroke-width=\"0.5\"/>\r\n            </pattern>\r\n            <pattern id=\"grid\" width=\"100\" height=\"100\" patternUnits=\"userSpaceOnUse\">\r\n              <rect width=\"100\" height=\"100\" fill=\"url(#smallGrid)\"/>\r\n              <path d=\"M 100 0 L 0 0 0 100\" fill=\"none\" stroke=\"gray\" stroke-width=\"1\"/>\r\n            </pattern>\r\n\r\n            <!-- arrow head -->\r\n            <marker id=\"arrow\" markerWidth=\"30\" markerHeight=\"30\" refX=\"0\" refY=\"4\" orient=\"auto\" markerUnits=\"strokeWidth\" viewBox=\"0 0 40 40\">\r\n              <path d=\"M0,0 L0,8 L9,4 z\" stroke=\"rgb(80, 80, 80)\" fill=\"transparent\" />\r\n            </marker>\r\n            <marker id=\"arrow_selected\" markerWidth=\"30\" markerHeight=\"30\" refX=\"0\" refY=\"4\" orient=\"auto\" markerUnits=\"strokeWidth\" viewBox=\"0 0 40 40\">\r\n                <path d=\"M0,0 L0,8 L9,4 z\" stroke=\"rgb(0, 0, 150)\" fill=\"transparent\"  />\r\n            </marker>\r\n        </defs>\r\n\r\n        <!-- svg frame-->\r\n        <rect width=\"100%\" height=\"100%\" fill=\"url(#grid)\" />\r\n                  \r\n\r\n        <!-- wires => edge.component -->\r\n        <g edge *ngFor=\"let edge of dataService.flowchart.edges; let edge_index = index\" \r\n        [edge]='edge'\r\n        [inputOffset]='inputOffset'\r\n        [outputOffset]='outputOffset'\r\n        (selected)='selectEdge($event, edge_index)'\r\n        />\r\n\r\n        <!-- temporary wire while dragging port, default position to <(0,0),(0,0)>, modified when a port is being dragged -->\r\n        <line id=\"temporary-wire\" class=\"temp-wire\" x1=\"0\" y1='0' x2='0' y2='0'></line>\r\n\r\n        <!-- nodes => node.component -->\r\n        <g node *ngFor=\"let node of dataService.flowchart.nodes; let node_index = index\" \r\n        id='flw_node_{{node_index}}'\r\n        [node]='node' \r\n        [selected]='isSelected(node_index)'\r\n        [inputOffset]='inputOffset'\r\n        [outputOffset]='outputOffset'\r\n        (action)='nodeAction($event, node_index)'\r\n        />\r\n    </svg>\r\n\r\n    <!-- 3 top left buttons of the svg: add Node, delete Node and delete Wire -->\r\n    <div class='button-row'>\r\n        <button mat-icon-button disableRipple='true' (click)='addNode()' title=\"Add Node\">\r\n        <mat-icon>add</mat-icon>\r\n        </button>\r\n        <button mat-icon-button disableRipple='true' (click)='deleteSelectedNodes()' title=\"Delete Selected Node\">\r\n        <mat-icon>remove</mat-icon>\r\n        </button>\r\n        <button mat-icon-button disableRipple='true' (click)='deleteSelectedEdges()' title=\"Delete Selected Wires\">\r\n        <mat-icon>link_off</mat-icon>\r\n        </button>\r\n    </div>\r\n\r\n    <!-- focus on flowchart button on the top right of the svg -->\r\n    <button class='resetViewer-button' mat-icon-button disableRipple='true' (click)='focusFlowchart()' title=\"Zoom to Fit\">\r\n        <mat-icon>control_camera</mat-icon>\r\n    </button>\r\n    \r\n\r\n</div>\r\n\r\n\r\n\r\n"
+module.exports = "<div id = 'flowchart-main-container' class='container'>\r\n    <!--\r\n    -->\r\n\r\n    <!-- svg component -->\r\n    <svg id=\"svg-canvas\" class = \"svgCanvas\" \r\n    [attr.viewBox]=\"viewbox\"\r\n    (mouseenter)='activateKeyEvent()'\r\n    (mouseleave)='deactivateKeyEvent()'\r\n    (mousedown)='panStart($event)'\r\n    (mousemove)='handleMouseMove($event)'  \r\n    (mouseup)='handleMouseUp($event)'\r\n    (wheel)='scale($event)'\r\n    >\r\n        <!-- definitions for svg: grid patterns, arrow head for connecting wire-->\r\n        <defs>\r\n            <!-- grid pattern -->\r\n            <pattern id=\"smallGrid\" width=\"20\" height=\"20\" patternUnits=\"userSpaceOnUse\">\r\n              <path d=\"M 20 0 L 0 0 0 20\" fill=\"none\" stroke=\"gray\" stroke-width=\"0.5\"/>\r\n            </pattern>\r\n            <pattern id=\"grid\" width=\"100\" height=\"100\" patternUnits=\"userSpaceOnUse\">\r\n              <rect width=\"100\" height=\"100\" fill=\"url(#smallGrid)\"/>\r\n              <path d=\"M 100 0 L 0 0 0 100\" fill=\"none\" stroke=\"gray\" stroke-width=\"1\"/>\r\n            </pattern>\r\n\r\n            <!-- arrow head -->\r\n            <marker id=\"arrow\" markerWidth=\"30\" markerHeight=\"30\" refX=\"0\" refY=\"4\" orient=\"auto\" markerUnits=\"strokeWidth\" viewBox=\"0 0 40 40\">\r\n              <path d=\"M0,0 L0,8 L9,4 z\" stroke=\"rgb(80, 80, 80)\" fill=\"transparent\" />\r\n            </marker>\r\n            <marker id=\"arrow_selected\" markerWidth=\"30\" markerHeight=\"30\" refX=\"0\" refY=\"4\" orient=\"auto\" markerUnits=\"strokeWidth\" viewBox=\"0 0 40 40\">\r\n                <path d=\"M0,0 L0,8 L9,4 z\" stroke=\"rgb(0, 0, 150)\" fill=\"transparent\"  />\r\n            </marker>\r\n        </defs>\r\n\r\n        <!-- svg frame-->\r\n        <rect width=\"100%\" height=\"100%\" fill=\"url(#grid)\" />\r\n                  \r\n\r\n        <!-- wires => edge.component -->\r\n        <g edge *ngFor=\"let edge of dataService.flowchart.edges; let edge_index = index\" \r\n        [edge]='edge'\r\n        [inputOffset]='inputOffset'\r\n        [outputOffset]='outputOffset'\r\n        (selected)='selectEdge($event, edge_index)'\r\n        />\r\n\r\n        <!-- temporary wire while dragging port, default position to <(0,0),(0,0)>, modified when a port is being dragged -->\r\n        <line id=\"temporary-wire\" class=\"temp-wire\" x1=\"0\" y1='0' x2='0' y2='0'></line>\r\n\r\n        <!-- nodes => node.component -->\r\n        <g node *ngFor=\"let node of dataService.flowchart.nodes; let node_index = index\" \r\n        id='flw_node_{{node_index}}'\r\n        [node]='node' \r\n        [selected]='isSelected(node_index)'\r\n        [inputOffset]='inputOffset'\r\n        [outputOffset]='outputOffset'\r\n        (action)='nodeAction($event, node_index)'\r\n        />\r\n    </svg>\r\n\r\n    <!-- 3 top left buttons of the svg: add Node, delete Node and delete Wire -->\r\n    <div class='button-row'>\r\n        <button mat-icon-button disableRipple='true' (click)='addNode()' title=\"Add Node\">\r\n        <mat-icon>add</mat-icon>\r\n        </button>\r\n        <button mat-icon-button disableRipple='true' (click)='deleteSelectedNodes()' title=\"Delete Selected Node\">\r\n        <mat-icon>remove</mat-icon>\r\n        </button>\r\n        <button mat-icon-button disableRipple='true' (click)='deleteSelectedEdges()' title=\"Delete Selected Wires\">\r\n        <mat-icon>link_off</mat-icon>\r\n        </button>\r\n    </div>\r\n\r\n    <!-- focus on flowchart button on the top right of the svg -->\r\n    <button class='resetViewer-button' mat-icon-button disableRipple='true' (click)='focusFlowchart()' title=\"Zoom to Fit\">\r\n        <mat-icon>control_camera</mat-icon>\r\n    </button>\r\n    \r\n\r\n</div>\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1275,10 +1289,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+// constant for the size of the svg canvas viewbox
+var canvasSize = 1500;
 var FlowchartComponent = /** @class */ (function () {
     function FlowchartComponent(dataService) {
         this.dataService = dataService;
         this.switch = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.viewbox = "0 0 " + canvasSize + " " + canvasSize;
         this.startCoords = [];
         // variable for flowchart zooming
         this.mousePos = [0, 0];
@@ -1319,6 +1336,7 @@ var FlowchartComponent = /** @class */ (function () {
     FlowchartComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.canvas = document.getElementById('svg-canvas');
+        // const panZoom = svgPanZoom(this.canvas);
         var bRect = this.canvas.getBoundingClientRect();
         this.offset = [bRect.left, bRect.top];
         // copy: copy node
@@ -1636,18 +1654,111 @@ var FlowchartComponent = /** @class */ (function () {
         else {
             return;
         }
-        // if new zoom is bigger than current zoom, update the mouse position to current position
-        if (value > this.zoom) {
-            this.mousePos = [event.clientX - this.offset[0], event.clientY - this.offset[1]];
-        }
+        /*
+        // VER 1: translate before and after re-scaling
+        this.mousePos = [event.pageX - this.offset[0], event.pageY - this.offset[1]];
+
+        const bRect = <DOMRect>this.canvas.getBoundingClientRect();
+        const beforeX = this.mousePos[0] - bRect.x + this.offset[0];
+        const beforeY = this.mousePos[1] - bRect.y + this.offset[1];
+
+        const afterX = beforeX / value + this.mousePos[0] * (value - this.zoom);
+        const afterY = beforeY / value + this.mousePos[1] * (value - this.zoom);
+
         // find transformation matrix
-        var m = this.canvas.createSVGMatrix()
-            .translate(this.mousePos[0], this.mousePos[1])
-            .scale(value)
-            .translate(-this.mousePos[0], -this.mousePos[1]);
-        var transf = 'matrix(' + m.a + ',' + m.b + ',' + m.c + ',' + m.d + ',' + m.e + ',' + m.f + ')';
+        const m = this.canvas.createSVGMatrix()
+        .translate(beforeX / this.zoom, beforeY / this.zoom)
+        .scale(value)
+        .translate(-afterX, -afterY);
+
+        const transf = 'matrix(' + m.a + ',' + m.b + ',' + m.c + ',' + m.d + ',' + m.e + ',' + m.f + ')';
+        */
+        /*
+        // VER 2 : transform relative to the top-left of the bounding box of the canvas and adjust based on mouse position
+
+        this.mousePos = [event.pageX - this.offset[0], event.pageY - this.offset[1]];
+
+        const bRect = <DOMRect>this.canvas.getBoundingClientRect();
+        let newX = (bRect.left - this.offset[0] - this.mousePos[0] * (value - this.zoom)) / this.zoom;
+        let newY = (bRect.top - this.offset[1]  - this.mousePos[1] * (value - this.zoom)) / this.zoom;
+        const boundingDiv = <DOMRect>document.getElementById('flowchart-main-container').getBoundingClientRect();
+
+        const m = this.canvas.createSVGMatrix()
+        .scale(value)
+        .translate(newX, newY);
+
+        newX = m.e;
+        newY = m.f;
+
+        if (newX > 0) {
+            newX = 0;
+        } else if (boundingDiv.width - newX > bRect.width * value / this.zoom) {
+            newX = boundingDiv.width - bRect.width * value / this.zoom;
+        }
+        if (newY > 0) {
+            newY = 0;
+        } else if (boundingDiv.height - newY > bRect.height * value / this.zoom) {
+            newY = boundingDiv.height - bRect.height * value / this.zoom;
+        }
+        if (newY > 0) { newY = 0; }
+
+
+        const transf = 'matrix(' + value + ', 0, 0,' + value + ',' + newX + ',' + newY + ')';
+        */
+        /*
+        // VER 3: transform relative to the center of the canvas
+
+        const bRect = <DOMRect>this.canvas.getBoundingClientRect();
+        const boundingDiv = <DOMRect>document.getElementById('flowchart-main-container').getBoundingClientRect();
+
+        let newX = (bRect.left - this.offset[0]) / this.zoom;
+        let newY = (bRect.top - this.offset[1] ) / this.zoom;
+
+
+        const m = this.canvas.createSVGMatrix()
+        .scale(value)
+        .translate(newX, newY);
+
+        newX = m.e - boundingDiv.width * (value - this.zoom) / (2 * this.zoom);
+        newY = m.f - boundingDiv.width * (value - this.zoom) / (2 * this.zoom);
+
+        if (newX > 0) {
+            newX = 0;
+        } else if (boundingDiv.width - newX > bRect.width * value / this.zoom) {
+            newX = boundingDiv.width - bRect.width * value / this.zoom;
+        }
+        if (newY > 0) {
+            newY = 0;
+        } else if (boundingDiv.height - newY > bRect.height * value / this.zoom) {
+            newY = boundingDiv.height - bRect.height * value / this.zoom;
+        }
+        if (newY > 0) { newY = 0; }
+        */
+        // VER 4: transform relative to the mouse position
+        this.mousePos = [event.pageX - this.offset[0], event.pageY - this.offset[1]];
+        var bRect = this.canvas.getBoundingClientRect();
+        var boundingDiv = document.getElementById('flowchart-main-container').getBoundingClientRect();
+        var newX = ((bRect.left - this.offset[0]) * value - this.mousePos[0] * (value - this.zoom)) / this.zoom;
+        var newY = ((bRect.top - this.offset[1]) * value - this.mousePos[1] * (value - this.zoom)) / this.zoom;
+        // snapping back the x and y coordinates if the zoom goes out of the bounding box
+        if (newX > 0) {
+            newX = 0;
+        }
+        else if (boundingDiv.width - newX > bRect.width * value / this.zoom) {
+            newX = boundingDiv.width - bRect.width * value / this.zoom;
+        }
+        if (newY > 0) {
+            newY = 0;
+        }
+        else if (boundingDiv.height - newY > bRect.height * value / this.zoom) {
+            newY = boundingDiv.height - bRect.height * value / this.zoom;
+        }
+        if (newY > 0) {
+            newY = 0;
+        }
+        var transf = 'matrix(' + value + ', 0, 0,' + value + ',' + newX + ',' + newY + ')';
         // transform
-        this.canvas.style.transition = 'transform 50ms ease-in';
+        this.canvas.style.transition = 'transform 0ms ease-in';
         this.canvas.style.transformOrigin = "top left";
         this.canvas.style.transform = transf;
         this.zoom = value;
@@ -1746,7 +1857,6 @@ var FlowchartComponent = /** @class */ (function () {
     };
     FlowchartComponent.prototype.handleMouseUp = function (event) {
         this.element = undefined;
-        // drop port --> create new edge if drop position is within 15px of an input/output port
         if (this.isDown === 3) {
             var pt = this.canvas.createSVGPoint();
             pt.x = event.pageX;
@@ -2413,6 +2523,7 @@ var ExecuteComponent = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 3:
                         ex_1 = _a.sent();
+                        // throw ex;
                         node.hasError = true;
                         prodWithError_1 = params['currentProcedure'][0];
                         markError_1 = function (prod, id) {
@@ -2448,6 +2559,9 @@ var ExecuteComponent = /** @class */ (function () {
                         else {
                             error = new Error(ex_1);
                         }
+                        // @ts-ignore
+                        console.logs = [];
+                        console.log(error);
                         throw error;
                     case 4: return [2 /*return*/];
                 }
@@ -2554,8 +2668,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadFileComponent", function() { return LoadFileComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var circular_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! circular-json */ "./node_modules/circular-json/build/circular-json.node.js");
-/* harmony import */ var circular_json__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(circular_json__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _shared_models_procedure__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @shared/models/procedure */ "./src/app/shared/models/procedure/index.ts");
+/* harmony import */ var circular_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! circular-json */ "./node_modules/circular-json/build/circular-json.node.js");
+/* harmony import */ var circular_json__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(circular_json__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @modules */ "./src/app/core/modules/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2565,6 +2681,8 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
 
 
 
@@ -2598,8 +2716,28 @@ var LoadFileComponent = /** @class */ (function () {
         var stream = rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"].create(function (observer) {
             var reader = new FileReader();
             reader.onloadend = function () {
+                function checkMissingProd(prodList) {
+                    var check = true;
+                    for (var _i = 0, prodList_1 = prodList; _i < prodList_1.length; _i++) {
+                        var prod = prodList_1[_i];
+                        if (prod.children) {
+                            if (!checkMissingProd(prod.children)) {
+                                check = false;
+                            }
+                        }
+                        prod.hasError = false;
+                        if (prod.type !== _shared_models_procedure__WEBPACK_IMPORTED_MODULE_2__["ProcedureTypes"].Function) {
+                            continue;
+                        }
+                        if (!_modules__WEBPACK_IMPORTED_MODULE_4__[prod.meta.module] || !_modules__WEBPACK_IMPORTED_MODULE_4__[prod.meta.module][prod.meta.name]) {
+                            prod.hasError = true;
+                            check = false;
+                        }
+                    }
+                    return check;
+                }
                 // if (typeof reader.result === 'string') {}
-                var f = circular_json__WEBPACK_IMPORTED_MODULE_2__["parse"](reader.result);
+                var f = circular_json__WEBPACK_IMPORTED_MODULE_3__["parse"](reader.result);
                 var file = {
                     name: f.name,
                     author: f.author,
@@ -2607,13 +2745,24 @@ var LoadFileComponent = /** @class */ (function () {
                     last_updated: f.last_updated,
                     version: f.version
                 };
+                var hasError = false;
+                for (var _i = 0, _a = file.flowchart.nodes; _i < _a.length; _i++) {
+                    var node = _a[_i];
+                    if (!checkMissingProd(node.procedure)) {
+                        node.hasError = true;
+                        hasError = true;
+                    }
+                }
+                if (hasError) {
+                    alert('The flowchart contains functions that does not exist in the current version of Mobius');
+                }
                 observer.next(file);
                 observer.complete();
             };
             reader.readAsText(selectedFile);
         });
         stream.subscribe(function (loadeddata) {
-            _this.loaded.emit(circular_json__WEBPACK_IMPORTED_MODULE_2__["stringify"](loadeddata));
+            _this.loaded.emit(circular_json__WEBPACK_IMPORTED_MODULE_3__["stringify"](loadeddata));
         });
         document.getElementById('file-input').value = '';
     };
@@ -3679,7 +3828,7 @@ var CodeUtils = /** @class */ (function () {
     }
     CodeUtils.getProcedureCode = function (prod, existingVars, addProdArr) {
         return __awaiter(this, void 0, void 0, function () {
-            var codeStr, args, prefix, _a, argVals, _loop_1, _i, _b, arg, argValues, fnCall, argsVals, fn, _c, _d, p, _e, _f;
+            var codeStr, args, prefix, _a, constName, argVals, _loop_1, _i, _b, arg, argValues, fnCall, argsVals, fn, _c, _d, p, _e, _f;
             return __generator(this, function (_g) {
                 switch (_g.label) {
                     case 0:
@@ -3704,10 +3853,12 @@ var CodeUtils = /** @class */ (function () {
                             case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].While: return [3 /*break*/, 6];
                             case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Break: return [3 /*break*/, 7];
                             case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Continue: return [3 /*break*/, 8];
-                            case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Function: return [3 /*break*/, 9];
-                            case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Imported: return [3 /*break*/, 15];
+                            case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Constant: return [3 /*break*/, 9];
+                            case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Return: return [3 /*break*/, 10];
+                            case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Function: return [3 /*break*/, 11];
+                            case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Imported: return [3 /*break*/, 17];
                         }
-                        return [3 /*break*/, 16];
+                        return [3 /*break*/, 18];
                     case 1:
                         if (args[0].value.indexOf('__params__') !== -1 || args[1].value.indexOf('__params__') !== -1) {
                             throw new Error('Unexpected Identifier');
@@ -3716,42 +3867,53 @@ var CodeUtils = /** @class */ (function () {
                         if (prefix === 'let ') {
                             existingVars.push(args[0].value);
                         }
-                        return [3 /*break*/, 16];
+                        return [3 /*break*/, 18];
                     case 2:
                         if (args[0].value.indexOf('__params__') !== -1) {
                             throw new Error('Unexpected Identifier');
                         }
                         codeStr.push("if (" + args[0].value + "){");
-                        return [3 /*break*/, 16];
+                        return [3 /*break*/, 18];
                     case 3:
                         codeStr.push("else {");
-                        return [3 /*break*/, 16];
+                        return [3 /*break*/, 18];
                     case 4:
                         if (args[0].value.indexOf('__params__') !== -1) {
                             throw new Error('Unexpected Identifier');
                         }
                         codeStr.push("else if(" + args[0].value + "){");
-                        return [3 /*break*/, 16];
+                        return [3 /*break*/, 18];
                     case 5:
                         // codeStr.push(`for (${prefix} ${args[0].value} of [...Array(${args[1].value}).keys()]){`);
                         if (args[0].value.indexOf('__params__') !== -1) {
                             throw new Error('Unexpected Identifier');
                         }
                         codeStr.push("for (" + prefix + " " + args[0].value + " of " + args[1].value + "){");
-                        return [3 /*break*/, 16];
+                        return [3 /*break*/, 18];
                     case 6:
                         if (args[0].value.indexOf('__params__') !== -1) {
                             throw new Error('Unexpected Identifier');
                         }
                         codeStr.push("while (" + args[0].value + "){");
-                        return [3 /*break*/, 16];
+                        return [3 /*break*/, 18];
                     case 7:
                         codeStr.push("break;");
-                        return [3 /*break*/, 16];
+                        return [3 /*break*/, 18];
                     case 8:
                         codeStr.push("continue;");
-                        return [3 /*break*/, 16];
+                        return [3 /*break*/, 18];
                     case 9:
+                        constName = args[0].value;
+                        if (args[0].value.substring(0, 1) === '"' || args[0].value.substring(0, 1) === '\'') {
+                            constName = args[0].value.substring(1, args[0].value.length - 1);
+                        }
+                        codeStr.push("__params__['constants']['" + constName + "'] = " + (args[1].value || args[1].default) + ";");
+                        return [3 /*break*/, 18];
+                    case 10:
+                        codeStr.push("if (" + args[0].value + " > __params__['model'].length) { return __params__['model']; }");
+                        codeStr.push("return __params__['model'][" + args[0].value + "].value;");
+                        return [3 /*break*/, 18];
+                    case 11:
                         argVals = [];
                         _loop_1 = function (arg) {
                             var val, p, p;
@@ -3818,21 +3980,21 @@ var CodeUtils = /** @class */ (function () {
                             });
                         };
                         _i = 0, _b = args.slice(1);
-                        _g.label = 10;
-                    case 10:
-                        if (!(_i < _b.length)) return [3 /*break*/, 13];
-                        arg = _b[_i];
-                        return [5 /*yield**/, _loop_1(arg)];
-                    case 11:
-                        _g.sent();
                         _g.label = 12;
                     case 12:
-                        _i++;
-                        return [3 /*break*/, 10];
+                        if (!(_i < _b.length)) return [3 /*break*/, 15];
+                        arg = _b[_i];
+                        return [5 /*yield**/, _loop_1(arg)];
                     case 13:
+                        _g.sent();
+                        _g.label = 14;
+                    case 14:
+                        _i++;
+                        return [3 /*break*/, 12];
+                    case 15:
                         argValues = argVals.join(',');
                         return [4 /*yield*/, argValues];
-                    case 14:
+                    case 16:
                         _g.sent();
                         fnCall = "__modules__." + prod.meta.module + "." + prod.meta.name + "( " + argValues + " )";
                         if (prod.meta.module.toUpperCase() === 'OUTPUT') {
@@ -3847,34 +4009,34 @@ var CodeUtils = /** @class */ (function () {
                                 existingVars.push(args[0].value);
                             }
                         }
-                        return [3 /*break*/, 16];
-                    case 15:
+                        return [3 /*break*/, 18];
+                    case 17:
                         argsVals = args.slice(1).map(function (arg) { return arg.value; }).join(',');
                         fn = prod.meta.name + "(__params__, " + argsVals + " )";
                         codeStr.push("" + prefix + args[0].value + " = " + fn + ";");
                         if (prefix === 'let ') {
                             existingVars.push(args[0].value);
                         }
-                        return [3 /*break*/, 16];
-                    case 16:
-                        if (!prod.children) return [3 /*break*/, 21];
+                        return [3 /*break*/, 18];
+                    case 18:
+                        if (!prod.children) return [3 /*break*/, 23];
                         _c = 0, _d = prod.children;
-                        _g.label = 17;
-                    case 17:
-                        if (!(_c < _d.length)) return [3 /*break*/, 20];
+                        _g.label = 19;
+                    case 19:
+                        if (!(_c < _d.length)) return [3 /*break*/, 22];
                         p = _d[_c];
                         _f = (_e = codeStr).push;
                         return [4 /*yield*/, CodeUtils.getProcedureCode(p, existingVars, addProdArr)];
-                    case 18:
-                        _f.apply(_e, [_g.sent()]);
-                        _g.label = 19;
-                    case 19:
-                        _c++;
-                        return [3 /*break*/, 17];
                     case 20:
-                        codeStr.push("}");
+                        _f.apply(_e, [_g.sent()]);
                         _g.label = 21;
                     case 21:
+                        _c++;
+                        return [3 /*break*/, 19];
+                    case 22:
+                        codeStr.push("}");
+                        _g.label = 23;
+                    case 23:
                         if (prod.print) {
                             codeStr.push("console.log('" + prod.args[0].value + ": '+ " + prod.args[0].value + ");");
                             // codeStr.push(`wait(5000);`);
@@ -4264,14 +4426,14 @@ var NodeUtils = /** @class */ (function () {
         node.enabled = true;
         node.name = 'Start';
         node.type = 'start';
-        node.position = { x: 400, y: 0 };
+        node.position = { x: 700, y: 400 };
         return node;
     };
     NodeUtils.getEndNode = function () {
         var node = NodeUtils.getNewNode();
         node.name = 'End';
         node.type = 'end';
-        node.position = { x: 400, y: 400 };
+        node.position = { x: 700, y: 800 };
         return node;
     };
     NodeUtils.deselect_procedure = function (node) {
@@ -4414,25 +4576,33 @@ var NodeUtils = /** @class */ (function () {
                 prod.argCount = 0;
                 prod.args = [];
                 break;
+            case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Constant:
+                prod.argCount = 2;
+                prod.meta = { module: 'Input', name: 'Constant', inputMode: _models_port__WEBPACK_IMPORTED_MODULE_1__["InputType"].SimpleInput, description: undefined };
+                prod.args = [
+                    { name: 'const_name', value: undefined, default: 0 },
+                    { name: '__input__', value: undefined, default: 0 }
+                ];
+                break;
+            case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Return:
+                prod.meta = { module: 'Output', name: 'Return', description: undefined };
+                prod.argCount = 1;
+                prod.args = [{ name: 'index', value: undefined, default: 0 }];
+                break;
             case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Function:
                 if (!data) {
                     throw Error('No function data');
                 }
-                prod.meta = { module: data.module, name: data.name, inputMode: _models_port__WEBPACK_IMPORTED_MODULE_1__["InputType"].SimpleInput, description: undefined };
+                prod.meta = { module: data.module, name: data.name };
                 prod.argCount = data.argCount + 1;
                 var returnArg = { name: 'var_name', value: undefined, default: undefined };
                 if (!data.hasReturn) {
                     returnArg = { name: '__none__', value: undefined, default: undefined };
                 }
-                // --UNSTABLE--
-                // changing the value of the last argument of all functions in input node to be undefined
-                if (node.type === 'start') {
-                    data.args[data.argCount - 1].value = undefined;
-                }
                 prod.args = [returnArg].concat(data.args);
                 break;
             case _models_procedure__WEBPACK_IMPORTED_MODULE_0__["ProcedureTypes"].Imported:
-                prod.meta = { module: data.module, name: data.name, inputMode: _models_port__WEBPACK_IMPORTED_MODULE_1__["InputType"].SimpleInput, description: undefined };
+                prod.meta = { module: data.module, name: data.name };
                 prod.argCount = data.argCount + 1;
                 prod.args = [{ name: 'var_name', value: undefined, default: undefined }].concat(data.args);
                 break;
@@ -4619,6 +4789,8 @@ var ProcedureTypes;
     ProcedureTypes[ProcedureTypes["Continue"] = 7] = "Continue";
     ProcedureTypes[ProcedureTypes["Function"] = 8] = "Function";
     ProcedureTypes[ProcedureTypes["Imported"] = 9] = "Imported";
+    ProcedureTypes[ProcedureTypes["Constant"] = 10] = "Constant";
+    ProcedureTypes[ProcedureTypes["Return"] = 11] = "Return";
 })(ProcedureTypes || (ProcedureTypes = {}));
 
 
@@ -4852,7 +5024,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class='flowchart-info'>\r\n    <input [(ngModel)]='flowchart.name' size={{flowchart.name?.length||1}}>\r\n    <textarea autogrow [(ngModel)]='flowchart.description' placeholder=\"flowchart description\"></textarea>\r\n</div>\r\n<hr>\r\n<div class='container--input'>\r\n    <procedure-input-editor *ngFor=\"let prod of node.procedure\" [prod]=\"prod\" ></procedure-input-editor>\r\n</div>\r\n\r\n<!--\r\n<section *ngIf=\"node.type != 'end'\">\r\n    <panel-header [node]='node' [title]=\"'inputs'\"></panel-header>\r\n    <div class='container--input'>\r\n        <input-port-editor [port]=\"node?.input\" ></input-port-editor>\r\n    </div>\r\n</section>\r\n<section *ngIf=\"node.type != 'start'\">\r\n    <panel-header [node]='node' [title]=\"'output'\"></panel-header>\r\n    <div class='container--output'>\r\n        <output-port-editor [port]=\"node?.output\" ></output-port-editor>\r\n    </div>\r\n</section>\r\n-->\r\n"
+module.exports = "<div class='flowchart-info' *ngIf=\"node.type=='start'\">\r\n    <input [(ngModel)]='flowchart.name' size={{flowchart.name?.length||1}}>\r\n    <textarea autogrow [(ngModel)]='flowchart.description' placeholder=\"flowchart description\"></textarea>\r\n</div>\r\n<hr *ngIf=\"node.type=='start'\">\r\n<div class='container--input'>\r\n    <procedure-input-editor *ngFor=\"let prod of node.procedure\" [prod]=\"prod\" ></procedure-input-editor>\r\n</div>\r\n\r\n<!--\r\n<section *ngIf=\"node.type != 'end'\">\r\n    <panel-header [node]='node' [title]=\"'inputs'\"></panel-header>\r\n    <div class='container--input'>\r\n        <input-port-editor [port]=\"node?.input\" ></input-port-editor>\r\n    </div>\r\n</section>\r\n<section *ngIf=\"node.type != 'start'\">\r\n    <panel-header [node]='node' [title]=\"'output'\"></panel-header>\r\n    <div class='container--output'>\r\n        <output-port-editor [port]=\"node?.output\" ></output-port-editor>\r\n    </div>\r\n</section>\r\n-->\r\n"
 
 /***/ }),
 
@@ -4920,7 +5092,7 @@ var ParameterEditorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class='container container--parameter' *ngIf='prod.meta.module==\"Input\"'>\r\n    <input [class.disabled-input]='true' value='{{prod.args[prod.argCount-2].value||\"Undefined\"}}:' size='15' disabled>\r\n\r\n    <select name={{prod.ID}}_type [(ngModel)]=\"prod.meta.inputMode\" tabindex=\"-1\">\r\n        <option \r\n            *ngFor=\"let ptype of PortTypesArr\" \r\n            [value]=\"PortTypes[ptype]\" \r\n            [selected]=\"prod.meta.inputMode == ptype\">{{ptype}}</option>\r\n    </select>\r\n    <ng-container [ngSwitch]=\"prod.meta.inputMode\" >\r\n        <input *ngSwitchCase=\"PortTypes.SimpleInput\" [(ngModel)]='prod.args[prod.argCount-1].default' placeholder='Default Value' \r\n        (input)='updateInputSize($event)' size={{prod.args[prod.argCount-1].default.length||13}}>\r\n\r\n        <div class='div--slider' *ngSwitchCase=\"PortTypes.Slider\">\r\n            <input [(ngModel)]='prod.args[prod.argCount-1].min' placeholder='Min'\r\n            (input)='updateInputSize($event)' size={{prod.args[prod.argCount-1].min?.length||1}}>\r\n            <input [(ngModel)]='prod.args[prod.argCount-1].max' placeholder='Max'\r\n            (input)='updateInputSize($event)' size={{prod.args[prod.argCount-1].max?.length||1}}>\r\n            <mat-slider\r\n                [(ngModel)]='prod.args[prod.argCount-1].default'\r\n                thumbLabel\r\n                tickInterval=\"auto\"\r\n                min={{prod.args[prod.argCount-1].min||0}}\r\n                max={{prod.args[prod.argCount-1].max||100}}></mat-slider>\r\n            <input [class.disabled-input]='true' [(ngModel)]='prod.args[prod.argCount-1].default'\r\n            (input)='updateInputSize($event)' size={{prod.args[prod.argCount-1].default?.length||1}} disabled>\r\n\r\n        </div>\r\n        <input *ngSwitchCase=\"PortTypes.Checkbox\" [(ngModel)]='prod.args[prod.argCount-1].default' name='prod.args[prod.argCount-1].default' type=\"checkbox\">\r\n        <input *ngSwitchCase=\"PortTypes.URL\" [(ngModel)]='prod.args[prod.argCount-1].default' name='prod.args[prod.argCount-1].default' placeholder='Default URL'>\r\n        <input *ngSwitchCase=\"PortTypes.File\" (change)=\"onFileChange($event)\" type=\"file\">\r\n    </ng-container>\r\n    <div>\r\n        <input class='inp--desc' placeholder='Constant Description' [(ngModel)]='prod.meta.description'\r\n        (input)='updateInputSize($event)' size={{prod.meta.description?.length||20}}>\r\n    </div>\r\n\r\n</div>\r\n<div class='container container--parameter' *ngIf='prod.meta.module==\"Output\"'>\r\n    <input class='inp--desc' placeholder='Return Description' [(ngModel)]='prod.meta.description'\r\n    (input)='updateInputSize($event)' size={{prod.meta.description?.length||20}}>\r\n</div>"
+module.exports = "<div class='container container--parameter' *ngIf='prod.meta?.module==\"Input\"'>\r\n    <input [class.disabled-input]='true' value='{{prod.args[prod.argCount-2].value||\"Undefined\"}}:' size='15' disabled>\r\n\r\n    <select name={{prod.ID}}_type [(ngModel)]=\"prod.meta.inputMode\" tabindex=\"-1\">\r\n        <option \r\n            *ngFor=\"let ptype of PortTypesArr\" \r\n            [value]=\"PortTypes[ptype]\" \r\n            [selected]=\"prod.meta.inputMode == ptype\">{{ptype}}</option>\r\n    </select>\r\n    <ng-container [ngSwitch]=\"prod.meta.inputMode\" >\r\n        <input *ngSwitchCase=\"PortTypes.SimpleInput\" [(ngModel)]='prod.args[prod.argCount-1].default' placeholder='Default Value' \r\n        (input)='updateInputSize($event)' size={{prod.args[prod.argCount-1].default.length||13}}>\r\n\r\n        <div class='div--slider' *ngSwitchCase=\"PortTypes.Slider\">\r\n            <input [(ngModel)]='prod.args[prod.argCount-1].min' placeholder='Min'\r\n            (input)='updateInputSize($event)' size={{prod.args[prod.argCount-1].min?.length||1}}>\r\n            <input [(ngModel)]='prod.args[prod.argCount-1].max' placeholder='Max'\r\n            (input)='updateInputSize($event)' size={{prod.args[prod.argCount-1].max?.length||1}}>\r\n            <mat-slider\r\n                [(ngModel)]='prod.args[prod.argCount-1].default'\r\n                thumbLabel\r\n                tickInterval=\"auto\"\r\n                min={{prod.args[prod.argCount-1].min||0}}\r\n                max={{prod.args[prod.argCount-1].max||100}}></mat-slider>\r\n            <input [class.disabled-input]='true' [(ngModel)]='prod.args[prod.argCount-1].default'\r\n            (input)='updateInputSize($event)' size={{prod.args[prod.argCount-1].default?.length||1}} disabled>\r\n\r\n        </div>\r\n        <input *ngSwitchCase=\"PortTypes.Checkbox\" [(ngModel)]='prod.args[prod.argCount-1].default' name='prod.args[prod.argCount-1].default' type=\"checkbox\">\r\n        <input *ngSwitchCase=\"PortTypes.URL\" [(ngModel)]='prod.args[prod.argCount-1].default' name='prod.args[prod.argCount-1].default' placeholder='Default URL'>\r\n        <input *ngSwitchCase=\"PortTypes.File\" (change)=\"onFileChange($event)\" type=\"file\">\r\n    </ng-container>\r\n    <div>\r\n        <input class='inp--desc' placeholder='Constant Description' [(ngModel)]='prod.meta.description'\r\n        (input)='updateInputSize($event)' size={{prod.meta.description?.length||20}}>\r\n    </div>\r\n\r\n</div>\r\n<div class='container container--parameter' *ngIf='prod.meta.module==\"Output\"'>\r\n    <input class='inp--desc' placeholder='Return Description' [(ngModel)]='prod.meta.description'\r\n    (input)='updateInputSize($event)' size={{prod.meta.description?.length||20}}>\r\n</div>"
 
 /***/ }),
 
@@ -4968,7 +5140,7 @@ var ProcedureInputEditorComponent = /** @class */ (function () {
         this.PortTypesArr = keys.slice(keys.length / 2);
     }
     ProcedureInputEditorComponent.prototype.ngAfterViewInit = function () {
-        console.log(this.prod);
+        // console.log(this.prod);
     };
     ProcedureInputEditorComponent.prototype.editOptions = function () { };
     ProcedureInputEditorComponent.prototype.onFileChange = function (event) {
@@ -5004,7 +5176,7 @@ var ProcedureInputEditorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class='container--line' \r\n    [class.selected]=\"data.selected\"\r\n    [class.error]=\"data.hasError\"\r\n    [class.disabled]=\"!data.enabled\"\r\n    [ngSwitch]=\"data.type\"\r\n    (click)='emitSelect($event, data)'>\r\n    <div class='container--item' >\r\n        <!-- Variable Assignment Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Variable\">\r\n            <input class='input--var'\r\n                [ngModel]='data.args[0].value'\r\n                (ngModelChange)='data.args[0].value=varMod($event)'\r\n                name='data.args[0].name'\r\n                placeholder={{data.args[0].name}}>  \r\n            = \r\n            <input class='input--arg'\r\n                [(ngModel)]='data.args[1].value'\r\n                name='data.args[1].name'\r\n                placeholder={{data.args[1].name}}\r\n                size = {{data.args[1].name.length}}\r\n                (input)='updateInputSize($event)'>  \r\n            </div>\r\n\r\n        <!-- IF Template -->\r\n        <div class='line--item hasChildren' *ngSwitchCase=\"ProcedureTypes.If\">\r\n            <div class='function-text'>\r\n                If\r\n            </div>\r\n            ( <input class='input--arg'\r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    [(ngModel)]='data.args[0].value'\r\n                    name='data.args[0].name'\r\n                    placeholder={{data.args[0].name}}\r\n                    size={{data.args[0].name.length}}\r\n                    (input)='updateInputSize($event)'>  \r\n                    )\r\n\r\n        </div>\r\n\r\n        <!-- ELSEIF Template -->\r\n        <div class='line--item hasChildren' *ngSwitchCase=\"ProcedureTypes.Elseif\">\r\n            <div class='function-text'>\r\n                Else if\r\n            </div>\r\n            \r\n        \r\n        ( <input class='input--arg'\r\n                (cut)='stopProp($event)' (paste)='stopProp($event)' \r\n                [(ngModel)]='data.args[0].value'\r\n                name='data.args[0].name'\r\n                placeholder={{data.args[0].name}}\r\n                size={{data.args[0].name.length}}\r\n                (input)='updateInputSize($event)'>  \r\n                )\r\n        </div>\r\n\r\n        <!-- ELSE Template -->\r\n        <div class='line--item hasChildren' *ngSwitchCase=\"ProcedureTypes.Else\">\r\n            <div class='function-text'>\r\n                Else\r\n            </div>\r\n        </div>\r\n\r\n        <!-- BREAK Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Break\">\r\n            <div class='function-text'>\r\n                Break\r\n            </div>\r\n        </div>\r\n\r\n        <!-- CONTINUE Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Continue\">\r\n            <div class='function-text'>\r\n                Continue\r\n            </div>\r\n        </div>\r\n\r\n\r\n    <!-- FOREACH Template -->\r\n        <div class='line--item hasChildren' *ngSwitchCase=\"ProcedureTypes.Foreach\">\r\n                <div class='function-text'>\r\n                    For\r\n                </div>\r\n                <input class='input--arg'\r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    [(ngModel)]='data.args[0].value'\r\n                    name='data.args[0].name'\r\n                    placeholder={{data.args[0].name}}\r\n                    size={{data.args[0].name.length}}\r\n                    (input)='updateInputSize($event)'>  \r\n                <div class='function-text'>\r\n                    in\r\n                </div>\r\n                <input class='input--arg'\r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    [(ngModel)]='data.args[1].value'\r\n                    name='data.args[1].name'\r\n                    placeholder={{data.args[1].name}}\r\n                    size={{data.args[1].name.length}}\r\n                    (input)='updateInputSize($event)'>  \r\n                    \r\n        </div>\r\n\r\n        <!-- WHILE Template -->\r\n        <div class='line--item hasChildren' *ngSwitchCase=\"ProcedureTypes.While\">\r\n            <div class='function-text'>\r\n                While\r\n            </div>\r\n            <input class='input--arg' \r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    [(ngModel)]='data.args[0].value'\r\n                    name='data.args[0].name'\r\n                    placeholder={{data.args[0].name}}\r\n                    size={{data.args[0].name.length}}\r\n                    (input)='updateInputSize($event)'>  \r\n\r\n        </div>\r\n        \r\n        <!-- Function Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Function\">\r\n            <ng-container *ngIf=\"data.meta.module.toUpperCase() !='OUTPUT' && data.args[0].name !=='__none__'\">\r\n                <input class='input--var'\r\n                [ngModel]='data.args[0].value'\r\n                (ngModelChange)='data.args[0].value=varMod($event)'\r\n                (cut)='stopProp($event)' \r\n                (paste)='stopProp($event)'\r\n                placeholder={{data.args[0].name}}>  \r\n                = \r\n\r\n            </ng-container>\r\n            <div class='function-text'>{{data.meta.module}}.{{data.meta.name}} </div>\r\n\r\n            <ng-container *ngFor='let p of data.args.slice(1);let i=index'>\r\n                <!--\r\n                <input *ngIf=\"p.name.toUpperCase() !== '__MODEL__'; else text_template\" \r\n                \r\n                (cut)='stopProp($event)' \r\n                (paste)='stopProp($event)' \r\n                [(ngModel)]='p.value' \r\n                placeholder={{p.name}}>    \r\n                \r\n                <ng-template #text_template>\r\n                    model,\r\n                </ng-template>\r\n                -->\r\n\r\n                <input *ngIf=\"p.name.indexOf('__') == -1\" \r\n                        class='input--arg' \r\n                        (cut)='stopProp($event)' \r\n                        (paste)='stopProp($event)' \r\n                        [(ngModel)]='p.value' \r\n                        placeholder={{p.name}}\r\n                        size={{p.name.length}}\r\n                        (input)='updateInputSize($event)'>    \r\n                \r\n                <!--\r\n\r\n                <ng-template #model_template>\r\n                    <ng-container *ngIf=\"p.name == model; else params_template\">\r\n                        model,\r\n                    </ng-container>\r\n                </ng-template>\r\n                <ng-template #params_template>\r\n                    <ng-container *ngIf=\"p.name == constList;\">\r\n                        const_list,\r\n                    </ng-container>\r\n                </ng-template>\r\n                -->\r\n\r\n            </ng-container>\r\n\r\n        </div>\r\n\r\n        <!-- Imported Function Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Imported\">\r\n            <input class='input--var'\r\n                    [ngModel]='data.args[0].value'\r\n                    (ngModelChange)='data.args[0].value=varMod($event)'\r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    placeholder={{data.args[0].name}}>  \r\n            = \r\n            <div class='function-text'>{{data.meta.name}} </div> \r\n            \r\n            <ng-container *ngFor='let p of data.args.slice(1);let i=index'>\r\n                <input class='input--arg' \r\n                        (cut)='stopProp($event)' (paste)='stopProp($event)' \r\n                        [(ngModel)]='p.value' \r\n                        placeholder={{p.name}}\r\n                        size={{p.name.length}}\r\n                        (input)='updateInputSize($event)'>    \r\n            </ng-container>\r\n            \r\n\r\n        </div>\r\n\r\n\r\n        <!-- delete button-->\r\n        <button class='btn' mat-icon-button title=\"Delete Procedure\" (click)=\"emitDelete()\" tabindex=\"-1\">\r\n            <mat-icon class='icon'>delete_outline</mat-icon>\r\n        </button>\r\n        <!-- Disable button-->\r\n        <button class='btn' mat-icon-button title=\"Disable Procedure\" [class.highlighted]='!data.enabled' (click)='markDisabled()' tabindex=\"-1\">\r\n            <mat-icon class='icon'>tv_off</mat-icon>\r\n        </button>\r\n        <!-- Print button-->\r\n        <button *ngIf='canBePrinted()' class='btn' mat-icon-button title=\"Print Result In Console\" [class.highlighted]='data.print' (click)='markPrint()' tabindex=\"-1\">\r\n            <mat-icon class='icon'>print</mat-icon>\r\n        </button>\r\n        <!-- help button-->\r\n        <button *ngIf='haveHelpText()' class='btn' mat-icon-button title=\"Help\" tabindex=\"-1\" (click)='emitHelpText(undefined)'>\r\n            <mat-icon class='icon'>help</mat-icon>\r\n        </button>\r\n    </div>\r\n    <!-- list of child procedures (if the procedure has children) -->\r\n    <div *ngIf=\"data?.children\" class='container--nested'>\r\n        <procedure-item \r\n            *ngFor=\"let line of data?.children; let idx=index\" \r\n            [data]=\"line\"\r\n            (select)='selectChild($event, line)'\r\n            (delete)='deleteChild(idx)'\r\n            (helpText)='emitHelpText($event)'></procedure-item>\r\n    </div>\r\n\r\n\r\n</div>\r\n"
+module.exports = "<div class='container--line' \r\n    [class.selected]=\"data.selected\"\r\n    [class.error]=\"data.hasError\"\r\n    [class.disabled]=\"!data.enabled\"\r\n    [ngSwitch]=\"data.type\"\r\n    (click)='emitSelect($event, data)'>\r\n    <div class='container--item' >\r\n        <!-- Variable Assignment Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Variable\">\r\n            <input class='input--var'\r\n                [ngModel]='data.args[0].value'\r\n                (ngModelChange)='data.args[0].value=varMod($event)'\r\n                name='data.args[0].name'\r\n                placeholder={{data.args[0].name}}>  \r\n            = \r\n            <input \r\n                class='input--arg'\r\n                [ngModel]='data.args[1].value'\r\n                (ngModelChange)='data.args[1].value=argMod($event)'\r\n                name='data.args[1].name'\r\n                placeholder={{data.args[1].name}}\r\n                size = {{data.args[1].value?.length||data.args[1].name.length}}\r\n                (input)='updateInputSize($event)'>  \r\n            </div>\r\n\r\n        <!-- IF Template -->\r\n        <div class='line--item hasChildren' *ngSwitchCase=\"ProcedureTypes.If\">\r\n            <div class='function-text'>\r\n                If\r\n            </div>\r\n            ( <input class='input--arg'\r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    [(ngModel)]='data.args[0].value'\r\n                    name='data.args[0].name'\r\n                    placeholder={{data.args[0].name}}\r\n                    size={{data.args[0].value?.length||data.args[0].name.length}}\r\n                    (input)='updateInputSize($event)'>  \r\n                    )\r\n\r\n        </div>\r\n\r\n        <!-- ELSEIF Template -->\r\n        <div class='line--item hasChildren' *ngSwitchCase=\"ProcedureTypes.Elseif\">\r\n            <div class='function-text'>\r\n                Else if\r\n            </div>\r\n            \r\n        \r\n        ( <input class='input--arg'\r\n                (cut)='stopProp($event)' (paste)='stopProp($event)' \r\n                [(ngModel)]='data.args[0].value'\r\n                name='data.args[0].name'\r\n                placeholder={{data.args[0].name}}\r\n                size={{data.args[0].value?.length||data.args[0].name.length}}\r\n                (input)='updateInputSize($event)'>  \r\n                )\r\n        </div>\r\n\r\n        <!-- ELSE Template -->\r\n        <div class='line--item hasChildren' *ngSwitchCase=\"ProcedureTypes.Else\">\r\n            <div class='function-text'>\r\n                Else\r\n            </div>\r\n        </div>\r\n\r\n        <!-- BREAK Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Break\">\r\n            <div class='function-text'>\r\n                Break\r\n            </div>\r\n        </div>\r\n\r\n        <!-- CONTINUE Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Continue\">\r\n            <div class='function-text'>\r\n                Continue\r\n            </div>\r\n        </div>\r\n\r\n\r\n    <!-- FOREACH Template -->\r\n        <div class='line--item hasChildren' *ngSwitchCase=\"ProcedureTypes.Foreach\">\r\n                <div class='function-text'>\r\n                    For\r\n                </div>\r\n                <input class='input--arg'\r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    [(ngModel)]='data.args[0].value'\r\n                    name='data.args[0].name'\r\n                    placeholder={{data.args[0].name}}\r\n                    size={{data.args[0].value?.length||data.args[0].name.length}}\r\n                    (input)='updateInputSize($event)'>  \r\n                <div class='function-text'>\r\n                    in\r\n                </div>\r\n                <input class='input--arg'\r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    [(ngModel)]='data.args[1].value'\r\n                    name='data.args[1].name'\r\n                    placeholder={{data.args[1].name}}\r\n                    size={{data.args[1].value?.length||data.args[1].name.length}}\r\n                    (input)='updateInputSize($event)'>  \r\n                    \r\n        </div>\r\n\r\n        <!-- WHILE Template -->\r\n        <div class='line--item hasChildren' *ngSwitchCase=\"ProcedureTypes.While\">\r\n            <div class='function-text'>\r\n                While\r\n            </div>\r\n            <input class='input--arg' \r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    [(ngModel)]='data.args[0].value'\r\n                    name='data.args[0].name'\r\n                    placeholder={{data.args[0].name}}\r\n                    size={{data.args[0].value?.length||data.args[0].name.length}}\r\n                    (input)='updateInputSize($event)'>  \r\n\r\n        </div>\r\n\r\n        <!-- Constant (Only visible in start node) Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Constant\">\r\n            <div class='function-text'>Constant</div>\r\n\r\n            <input class='input--arg' \r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    [(ngModel)]='data.args[0].value'\r\n                    name='data.args[0].name'\r\n                    placeholder={{data.args[0].name}}\r\n                    size={{data.args[0].value?.length||data.args[0].name.length}}\r\n                    (input)='updateInputSize($event)'>  \r\n\r\n        </div>\r\n        \r\n        <!-- Return (Only visible in End node) Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Return\">\r\n            <div class='function-text'>Return</div>\r\n\r\n            <input class='input--arg' \r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    [(ngModel)]='data.args[0].value'\r\n                    name='data.args[0].name'\r\n                    placeholder={{data.args[0].name}}\r\n                    size={{data.args[0].value?.length||data.args[0].name.length}}\r\n                    (input)='updateInputSize($event)'>  \r\n        </div>\r\n        \r\n\r\n        \r\n        <!-- Function Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Function\">\r\n            <ng-container *ngIf=\"data.meta.module.toUpperCase() !='OUTPUT' && data.args[0].name !=='__none__'\">\r\n                <input class='input--var'\r\n                [ngModel]='data.args[0].value'\r\n                (ngModelChange)='data.args[0].value=varMod($event)'\r\n                (cut)='stopProp($event)' \r\n                (paste)='stopProp($event)'\r\n                placeholder={{data.args[0].name}}>  \r\n                = \r\n\r\n            </ng-container>\r\n            <div class='function-text'>{{data.meta.module}}.{{data.meta.name}} </div>\r\n\r\n            <ng-container *ngFor='let p of data.args.slice(1);let i=index'>\r\n                <!--\r\n                <input *ngIf=\"p.name.toUpperCase() !== '__MODEL__'; else text_template\" \r\n                \r\n                (cut)='stopProp($event)' \r\n                (paste)='stopProp($event)' \r\n                [(ngModel)]='p.value' \r\n                placeholder={{p.name}}>    \r\n                \r\n                <ng-template #text_template>\r\n                    model,\r\n                </ng-template>\r\n                -->\r\n\r\n                <input *ngIf=\"p.name.indexOf('__') == -1\" \r\n                        class='input--arg' \r\n                        (cut)='stopProp($event)' \r\n                        (paste)='stopProp($event)' \r\n                        [(ngModel)]='p.value' \r\n                        placeholder={{p.name}}\r\n                        size={{p.value?.length||p.name.length}}\r\n                        (input)='updateInputSize($event)'>    \r\n                \r\n\r\n            </ng-container>\r\n\r\n        </div>\r\n\r\n        <!-- Imported Function Template -->\r\n        <div class='line--item' *ngSwitchCase=\"ProcedureTypes.Imported\">\r\n            <input class='input--var'\r\n                    [ngModel]='data.args[0].value'\r\n                    (ngModelChange)='data.args[0].value=varMod($event)'\r\n                    (cut)='stopProp($event)' (paste)='stopProp($event)'\r\n                    placeholder={{data.args[0].name}}>  \r\n            = \r\n            <div class='function-text'>{{data.meta.name}} </div> \r\n            \r\n            <ng-container *ngFor='let p of data.args.slice(1);let i=index'>\r\n                <input class='input--arg' \r\n                        (cut)='stopProp($event)' (paste)='stopProp($event)' \r\n                        [(ngModel)]='p.value' \r\n                        placeholder={{p.name}}\r\n                        size={{p.value?.length||p.name.length}}\r\n                        (input)='updateInputSize($event)'>    \r\n            </ng-container>\r\n            \r\n\r\n        </div>\r\n\r\n\r\n        <!-- delete button-->\r\n        <button class='btn' mat-icon-button title=\"Delete Procedure\" (click)=\"emitDelete()\" tabindex=\"-1\">\r\n            <mat-icon class='icon'>delete_outline</mat-icon>\r\n        </button>\r\n        <!-- Disable button-->\r\n        <button class='btn' mat-icon-button title=\"Disable Procedure\" [class.highlighted]='!data.enabled' (click)='markDisabled()' tabindex=\"-1\">\r\n            <mat-icon class='icon'>tv_off</mat-icon>\r\n        </button>\r\n        <!-- Print button-->\r\n        <button *ngIf='canBePrinted()' class='btn' mat-icon-button title=\"Print Result In Console\" [class.highlighted]='data.print' (click)='markPrint()' tabindex=\"-1\">\r\n            <mat-icon class='icon'>print</mat-icon>\r\n        </button>\r\n        <!-- help button-->\r\n        <button *ngIf='haveHelpText()' class='btn' mat-icon-button title=\"Help\" tabindex=\"-1\" (click)='emitHelpText(undefined)'>\r\n            <mat-icon class='icon'>help</mat-icon>\r\n        </button>\r\n    </div>\r\n    <!-- list of child procedures (if the procedure has children) -->\r\n    <div *ngIf=\"data?.children\" class='container--nested'>\r\n        <procedure-item \r\n            *ngFor=\"let line of data?.children; let idx=index\" \r\n            [data]=\"line\"\r\n            (select)='selectChild($event, line)'\r\n            (delete)='deleteChild(idx)'\r\n            (helpText)='emitHelpText($event)'></procedure-item>\r\n    </div>\r\n\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -5015,7 +5187,7 @@ module.exports = "<div class='container--line' \r\n    [class.selected]=\"data.s
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".container--nested {\n  padding-left: 0px; }\n\n.container--line {\n  margin: 8px 0px 2px 10px;\n  padding: 2px 0px 2px 2px;\n  border-bottom: 1px solid gainsboro;\n  border-left: 1px solid gainsboro;\n  color: #505050;\n  min-height: 22px;\n  opacity: 1; }\n\n.container--line.disabled {\n    opacity: 0.5; }\n\n.container--line.selected {\n    border: 1px solid #000096;\n    background-color: gainsboro; }\n\n.container--line.error {\n    border: 1px solid red; }\n\n.container--item {\n  margin: none;\n  padding: none;\n  border: none; }\n\n.btn {\n  height: 24px;\n  width: 24px;\n  float: right;\n  background-color: transparent;\n  border: none;\n  display: none;\n  color: #777; }\n\n.btn.highlighted {\n    background-color: #ff9696; }\n\n.container--item:hover .btn {\n  display: block; }\n\n.icon {\n  vertical-align: top;\n  font-size: 20px; }\n\n.line--item {\n  display: inline-block;\n  color: #505050; }\n\n/*\r\n.hasChildren::before{\r\n    content: '\\25B6';\r\n    position: absolute;\r\n    left: 3px;\r\n    font-size: 8px;\r\n}\r\n*/\n\n.input--var {\n  width: 70px;\n  background-color: #fafafa;\n  border: none;\n  border-bottom: 1px solid #505050;\n  margin-right: 5px; }\n\n.input--arg {\n  resize: horizontal;\n  min-width: 1px;\n  max-width: 300px;\n  width: auto;\n  background-color: #fafafa;\n  border: none;\n  border-bottom: 1px solid #505050;\n  margin-left: 5px; }\n\ninput:focus {\n  border: 1px solid #000096; }\n\n.function-text {\n  display: inline-block;\n  white-space: normal;\n  font-style: italic;\n  color: #be8c1e;\n  font-weight: 600; }\n"
+module.exports = ".container--nested {\n  padding-left: 0px; }\n\n.container--line {\n  margin: 8px 0px 2px 10px;\n  padding: 2px 0px 2px 2px;\n  border-bottom: 1px solid gainsboro;\n  border-left: 1px solid gainsboro;\n  color: #505050;\n  min-height: 22px;\n  opacity: 1; }\n\n.container--line.disabled {\n    opacity: 0.5; }\n\n.container--line.selected {\n    border: 1px solid #000096;\n    background-color: gainsboro; }\n\n.container--line.error {\n    border: 1px solid red; }\n\n.container--item {\n  margin: none;\n  padding: none;\n  border: none; }\n\n.btn {\n  height: 24px;\n  width: 24px;\n  float: right;\n  background-color: transparent;\n  border: none;\n  display: none;\n  color: #777; }\n\n.btn.highlighted {\n    background-color: #ff9696; }\n\n.container--item:hover .btn {\n  display: block; }\n\n.icon {\n  vertical-align: top;\n  font-size: 20px; }\n\n.line--item {\n  display: inline-block;\n  color: #505050; }\n\n/*\r\n.hasChildren::before{\r\n    content: '\\25B6';\r\n    position: absolute;\r\n    left: 3px;\r\n    font-size: 8px;\r\n}\r\n*/\n\n.input--var {\n  width: 70px;\n  background-color: #fafafa;\n  border: none;\n  border-bottom: 1px solid #505050;\n  margin-right: 5px; }\n\n.input--arg {\n  resize: horizontal;\n  min-width: 1px;\n  max-width: 300px;\n  width: auto;\n  background-color: #fafafa;\n  border: none;\n  border-bottom: 1px solid #505050;\n  margin-left: 5px; }\n\n.input--arg.error {\n    border: 1px solid red; }\n\ninput:focus {\n  border: 1px solid #000096; }\n\n.function-text {\n  display: inline-block;\n  white-space: normal;\n  font-style: italic;\n  color: #be8c1e;\n  font-weight: 600; }\n"
 
 /***/ }),
 
@@ -5032,7 +5204,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _models_procedure__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @models/procedure */ "./src/app/shared/models/procedure/index.ts");
 /* harmony import */ var _shared_decorators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @shared/decorators */ "./src/app/shared/decorators/index.ts");
-/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @modules */ "./src/app/core/modules/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5042,7 +5213,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -5056,8 +5226,6 @@ var ProcedureItemComponent = /** @class */ (function () {
         this.copied = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.pasteOn = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.helpText = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.model = _modules__WEBPACK_IMPORTED_MODULE_3__["_parameterTypes"].model;
-        this.constList = _modules__WEBPACK_IMPORTED_MODULE_3__["_parameterTypes"].constList;
         this.ProcedureTypes = _models_procedure__WEBPACK_IMPORTED_MODULE_1__["ProcedureTypes"];
     }
     // delete this procedure
@@ -5095,8 +5263,14 @@ var ProcedureItemComponent = /** @class */ (function () {
             return;
         }
         try {
-            // @ts-ignore
-            this.helpText.emit(this.ModuleDoc[this.data.meta.module][this.data.meta.name]);
+            if (this.data.type === _models_procedure__WEBPACK_IMPORTED_MODULE_1__["ProcedureTypes"].Imported) {
+                this.helpText.emit(this.data.meta.name);
+                // this.helpText.emit(this.ModuleDoc[this.data.meta.module][this.data.meta.name]);
+            }
+            else {
+                // @ts-ignore
+                this.helpText.emit(this.ModuleDoc[this.data.meta.module][this.data.meta.name]);
+            }
         }
         catch (ex) {
             this.helpText.emit('error');
@@ -5106,7 +5280,7 @@ var ProcedureItemComponent = /** @class */ (function () {
     ProcedureItemComponent.prototype.stopProp = function (event) {
         event.stopPropagation();
     };
-    // modify input: replace space " " with underscore "_"
+    // modify variable input: replace space " " with underscore "_"
     ProcedureItemComponent.prototype.varMod = function (event) {
         if (!event) {
             return event;
@@ -5115,9 +5289,31 @@ var ProcedureItemComponent = /** @class */ (function () {
         str = str.replace(/ /g, '_');
         return str;
     };
+    // modify argument input: check if input is valid
+    ProcedureItemComponent.prototype.argMod = function (event) {
+        return event;
+        console.log(event);
+        var string = event.trim();
+        if (string.substring(0, 1) === '@' || (/^[a-zA-Z_$][0-9a-zA-Z_$]*/i).test(string)) {
+            return event;
+        }
+        try {
+            JSON.parse(string);
+        }
+        catch (ex) {
+            console.log('.........', ex);
+            // document.activeElement.style.error = true;
+        }
+        return event;
+    };
     ProcedureItemComponent.prototype.updateInputSize = function (event) {
         var val = event.target.value || event.target.placeholder;
         event.target.style.width = ctx.measureText(val).width + 10 + 'px';
+    };
+    ProcedureItemComponent.prototype.inputSize = function (val) {
+        console.log(val);
+        // event.target.style.width = ctx.measureText(val).width + 10 + 'px';
+        return ctx.measureText(val).width + 10 + 'px';
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -5166,7 +5362,7 @@ var ProcedureItemComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container *ngIf=\"nodeType == ''\">\r\n    <!-- basic functions: variable, if, else, else if, for, while, continue, break -->\r\n    <ul class='toolset__basic'>\r\n        <ng-container *ngFor=\"let type of ProcedureTypesArr\">\r\n            <li *ngIf='type.toUpperCase() !== \"FUNCTION\" && type.toUpperCase() !== \"IMPORTED\"'\r\n            class='tooltip'\r\n            (click)='add(ProcedureTypes[type])'> \r\n                {{type}}\r\n                <!--\r\n                <span class=\"tooltiptext\">\r\n                    <p class='funcDesc'>{{type}}</p>\r\n                </span>\r\n                -->\r\n            </li>\r\n        </ng-container>\r\n    </ul>\r\n    \r\n\r\n    <!-- functions from core.modules -->\r\n    <ng-container *ngFor='let mod of Modules' >\r\n\r\n        <button id='{{mod.module}}' class=\"accordion\" \r\n        *ngIf='mod.module.toUpperCase() != \"INPUT\" && mod.module.toUpperCase() != \"OUTPUT\"'\r\n        (click)='toggleAccordion(mod.module)' >{{ mod.module }}</button>\r\n        <div class=\"panel\">\r\n            <ul class='toolset__functions--subset'>\r\n                <ng-container *ngFor='let fn of mod.functions'>\r\n                    <div class='tooltip' *ngIf='fn.name.substring(0,1)!=\"_\"'>\r\n                        <li \r\n                        (click)='add_function(fn)'> \r\n                            {{fn.name}} \r\n                        </li>\r\n                        <span class=\"tooltiptext\" *ngIf='ModuleDoc[mod.module] && ModuleDoc[mod.module][fn.name]'>\r\n                            <p class='funcDesc'>{{ModuleDoc[mod.module][fn.name].summary||ModuleDoc[mod.module][fn.name].description}}</p>\r\n                            <p *ngIf='ModuleDoc[mod.module][fn.name].parameters?.length > 0'><span>Parameters: </span></p>\r\n                            <p class='paramP' *ngFor='let param of ModuleDoc[mod.module][fn.name].parameters'><span>{{param.name}} - </span> {{param.description}}</p>\r\n                            <p *ngIf='ModuleDoc[mod.module][fn.name].returns'><span>Returns: </span> {{ModuleDoc[mod.module][fn.name].returns}}</p>\r\n                        </span>\r\n                    </div>\r\n                </ng-container>\r\n            </ul>\r\n        </div>\r\n    </ng-container>\r\n\r\n    <!-- imported functions -->\r\n    <ng-container>\r\n        <button id='imported' class=\"accordion\" \r\n        (click)='toggleAccordion(\"imported\")' >Imported</button>\r\n        <div class=\"panel\">\r\n            <ul class='toolset__functions--subset'>\r\n                <div class='tooltip' *ngFor='let fn of functions'>\r\n                    <li (click)='add_imported_function(fn)'> {{fn.name}} \r\n                        <button class='remove-btn' (click)='delete_imported_function(fn)'>\r\n                            <mat-icon class='remove-icon'>close</mat-icon>\r\n                        </button>\r\n                    </li>\r\n                    <span class=\"tooltiptext\">\r\n                        <p class='funcDesc'>{{fn.doc.description}}</p>\r\n                        <p *ngIf='fn.doc.parameters?.length > 0'><span>Parameters: </span></p>\r\n                        <p class='paramP' *ngFor='let param of fn.doc.parameters'><span>{{param.name}} - </span> {{param.description}}</p>\r\n                        <p *ngIf='fn.doc.returns'><span>Returns: </span> {{fn.doc.returns}}</p>\r\n                    </span>\r\n                </div>\r\n            </ul>\r\n            <br>\r\n            <input type=\"file\" id=\"selectedFile\" (change)=\"import_function($event)\" style=\"display: none;\" />\r\n            <button class='add-btn' onclick=\"document.getElementById('selectedFile').click();\" title=\"Import Function from File\">\r\n                <mat-icon class='add-icon'>open_in_browser</mat-icon>\r\n            </button>\r\n        </div>\r\n    </ng-container>\r\n</ng-container>\r\n\r\n<!-- functions for input nodes -->\r\n<div id='toolset_inp' class = 'toolset' *ngIf=\"nodeType == 'start'\">\r\n    \r\n    <div class='toolset__functions'>\r\n        <section *ngFor='let mod of Modules' >\r\n            <div *ngIf='mod.module.toUpperCase() == \"INPUT\"'>\r\n                <!-- <h3>{{ mod.module }}</h3> -->\r\n                <ul class='toolset__functions--subset'>\r\n                    <li *ngFor='let fn of mod.functions' (click)='add_function(fn)'> {{fn.name}} </li>\r\n                </ul>\r\n            </div>\r\n        </section>\r\n    </div>\r\n</div>\r\n\r\n<!-- functions for output nodes -->\r\n<div id='toolset_inp' class = 'toolset' *ngIf=\"nodeType == 'end'\">\r\n    <div class='toolset__functions' *ngIf=\"hasProd===false\">\r\n        <section *ngFor='let mod of Modules' >\r\n            <div *ngIf='mod.module.toUpperCase() == \"OUTPUT\"'>\r\n                <!-- <h3>{{ mod.module }}</h3> -->\r\n                <ul class='toolset__functions--subset'>\r\n                    <li *ngFor='let fn of mod.functions' (click)='add_function(fn)'> {{fn.name}} </li>\r\n                </ul>\r\n            </div>\r\n        </section>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<ng-container *ngIf=\"nodeType == ''\">\r\n    <!-- basic functions: variable, if, else, else if, for, while, continue, break -->\r\n    <ul class='toolset__basic'>\r\n        <ng-container *ngFor=\"let type of ProcedureTypesArr\">\r\n            <li *ngIf='type.toUpperCase() !== \"FUNCTION\" && type.toUpperCase() !== \"IMPORTED\"\r\n            && type.toUpperCase() !== \"CONSTANT\" && type.toUpperCase() !== \"RETURN\"'\r\n            class='tooltip'\r\n            (click)='add(ProcedureTypes[type])'> \r\n                {{type}}\r\n                <!--\r\n                <span class=\"tooltiptext\">\r\n                    <p class='funcDesc'>{{type}}</p>\r\n                </span>\r\n                -->\r\n            </li>\r\n        </ng-container>\r\n    </ul>\r\n    \r\n\r\n    <!-- functions from core.modules -->\r\n    <ng-container *ngFor='let mod of Modules' >\r\n\r\n        <button id='{{mod.module}}' class=\"accordion\" \r\n        *ngIf='mod.module.toUpperCase() != \"INPUT\" && mod.module.toUpperCase() != \"OUTPUT\"'\r\n        (click)='toggleAccordion(mod.module)' >{{ mod.module }}</button>\r\n        <div class=\"panel\">\r\n            <ul class='toolset__functions--subset'>\r\n                <ng-container *ngFor='let fn of mod.functions'>\r\n                    <div class='tooltip' *ngIf='fn.name.substring(0,1)!=\"_\"'>\r\n                        <li \r\n                        (click)='add_function(fn)'> \r\n                            {{fn.name}} \r\n                        </li>\r\n                        <span class=\"tooltiptext\" *ngIf='ModuleDoc[mod.module] && ModuleDoc[mod.module][fn.name]'>\r\n                            <p class='funcDesc'>{{ModuleDoc[mod.module][fn.name].summary||ModuleDoc[mod.module][fn.name].description}}</p>\r\n                            <p *ngIf='ModuleDoc[mod.module][fn.name].parameters?.length > 0'><span>Parameters: </span></p>\r\n                            <p class='paramP' *ngFor='let param of ModuleDoc[mod.module][fn.name].parameters'><span>{{param.name}} - </span> {{param.description}}</p>\r\n                            <p *ngIf='ModuleDoc[mod.module][fn.name].returns'><span>Returns: </span> {{ModuleDoc[mod.module][fn.name].returns}}</p>\r\n                        </span>\r\n                    </div>\r\n                </ng-container>\r\n            </ul>\r\n        </div>\r\n    </ng-container>\r\n\r\n    <!-- imported functions -->\r\n    <ng-container>\r\n        <button id='imported' class=\"accordion\" \r\n        (click)='toggleAccordion(\"imported\")' >Imported</button>\r\n        <div class=\"panel\">\r\n            <ul class='toolset__functions--subset'>\r\n                <div class='tooltip' *ngFor='let fn of functions'>\r\n                    <li (click)='add_imported_function(fn)'> {{fn.name}} \r\n                        <button class='remove-btn' (click)='delete_imported_function(fn)'>\r\n                            <mat-icon class='remove-icon'>close</mat-icon>\r\n                        </button>\r\n                    </li>\r\n                    <span class=\"tooltiptext\">\r\n                        <p class='funcDesc'>{{fn.doc.description}}</p>\r\n                        <p *ngIf='fn.doc.parameters?.length > 0'><span>Parameters: </span></p>\r\n                        <p class='paramP' *ngFor='let param of fn.doc.parameters'><span>{{param.name}} - </span> {{param.description}}</p>\r\n                        <p *ngIf='fn.doc.returns'><span>Returns: </span> {{fn.doc.returns}}</p>\r\n                    </span>\r\n                </div>\r\n            </ul>\r\n            <br>\r\n            <input type=\"file\" id=\"selectedFile\" (change)=\"import_function($event)\" style=\"display: none;\" />\r\n            <button class='add-btn' onclick=\"document.getElementById('selectedFile').click();\" title=\"Import Function from File\">\r\n                <mat-icon class='add-icon'>open_in_browser</mat-icon>\r\n            </button>\r\n        </div>\r\n    </ng-container>\r\n</ng-container>\r\n\r\n<!-- functions for input nodes -->\r\n<div id='toolset_inp' class = 'toolset' *ngIf=\"nodeType == 'start'\">\r\n    <div class='toolset__functions'>\r\n        <section *ngFor='let type of ProcedureTypesArr' >\r\n            <div *ngIf='type.toUpperCase() == \"CONSTANT\"'>\r\n                <ul class='toolset__functions--subset'>\r\n                    <li (click)='add(ProcedureTypes[type])'> {{type}} </li>\r\n                </ul>\r\n            </div>\r\n        </section>\r\n        <!--\r\n        <section *ngFor='let mod of Modules' >\r\n            <div *ngIf='mod.module.toUpperCase() == \"INPUT\"'>\r\n                <ul class='toolset__functions--subset'>\r\n                    <li *ngFor='let fn of mod.functions' (click)='add_function(fn)'> {{fn.name}} </li>\r\n                </ul>\r\n            </div>\r\n        </section>\r\n        -->\r\n    </div>\r\n</div>\r\n\r\n<!-- functions for output nodes -->\r\n<div id='toolset_inp' class = 'toolset' *ngIf=\"nodeType == 'end'\">\r\n    <div class='toolset__functions' *ngIf=\"hasProd===false\">\r\n        <!--\r\n        <section *ngFor='let type of ProcedureTypesArr' >\r\n            <div *ngIf='type.toUpperCase() == \"RETURN\"'>\r\n                <ul class='toolset__functions--subset'>\r\n                    <li (click)='add(ProcedureTypes[type])'> {{type}} </li>\r\n                </ul>\r\n            </div>\r\n        </section>\r\n        -->\r\n        <section *ngFor='let mod of Modules' >\r\n            <div *ngIf='mod.module.toUpperCase() == \"OUTPUT\"'>\r\n                <ul class='toolset__functions--subset'>\r\n                    <li *ngFor='let fn of mod.functions' (click)='add_function(fn)'> {{fn.name}} </li>\r\n                </ul>\r\n            </div>\r\n        </section>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -5489,19 +5685,23 @@ var ViewEditorComponent = /** @class */ (function () {
     };
     // copy selected procedures
     ViewEditorComponent.prototype.copyProd = function () {
-        if (!this.copyCheck) {
+        var node = this.dataService.node;
+        if (!this.copyCheck || node.type === 'end') {
             return;
         }
-        console.log('copying', this.dataService.node.state.procedure);
-        this.copiedProd = this.dataService.node.state.procedure;
+        console.log('copying', node.state.procedure);
+        this.copiedType = node.type;
+        this.copiedProd = node.state.procedure;
     };
     // cut selected procedures
     ViewEditorComponent.prototype.cutProd = function (event) {
-        if (!this.copyCheck || document.activeElement.nodeName === 'INPUT') {
+        var node = this.dataService.node;
+        if (!this.copyCheck || document.activeElement.nodeName === 'INPUT' || node.type === 'end') {
             return;
         }
-        console.log('cutting', this.dataService.node.state.procedure);
-        this.copiedProd = this.dataService.node.state.procedure;
+        console.log('cutting', node.state.procedure);
+        this.copiedType = node.type;
+        this.copiedProd = node.state.procedure;
         var parentArray;
         for (var _i = 0, _a = this.copiedProd; _i < _a.length; _i++) {
             var prod = _a[_i];
@@ -5509,7 +5709,7 @@ var ViewEditorComponent = /** @class */ (function () {
                 parentArray = prod.parent.children;
             }
             else {
-                parentArray = this.dataService.node.procedure;
+                parentArray = node.procedure;
             }
             for (var i = 0; i < parentArray.length; i++) {
                 if (parentArray[i] === prod) {
@@ -5518,36 +5718,41 @@ var ViewEditorComponent = /** @class */ (function () {
                 }
             }
         }
-        _models_node__WEBPACK_IMPORTED_MODULE_1__["NodeUtils"].deselect_procedure(this.dataService.node);
+        _models_node__WEBPACK_IMPORTED_MODULE_1__["NodeUtils"].deselect_procedure(node);
     };
     // paste copied procedures
     ViewEditorComponent.prototype.pasteProd = function (event) {
-        if (this.copyCheck && this.copiedProd && document.activeElement.nodeName.toUpperCase() !== 'INPUT') {
-            var pastingPlace = this.dataService.node.state.procedure[0];
+        var node = this.dataService.node;
+        if (this.copyCheck
+            && this.copiedProd
+            && this.copiedType === node.type
+            && document.activeElement.nodeName.toUpperCase() !== 'INPUT'
+            && document.activeElement.nodeName.toUpperCase() !== 'TEXTAREA') {
+            var pastingPlace = node.state.procedure[0];
             if (pastingPlace === undefined) {
                 for (var i = 0; i < this.copiedProd.length; i++) {
                     console.log('pasting', this.copiedProd[i].ID);
-                    _models_node__WEBPACK_IMPORTED_MODULE_1__["NodeUtils"].paste_procedure(this.dataService.node, this.copiedProd[i]);
-                    this.dataService.node.state.procedure[0].selected = false;
-                    this.dataService.node.state.procedure = [];
+                    _models_node__WEBPACK_IMPORTED_MODULE_1__["NodeUtils"].paste_procedure(node, this.copiedProd[i]);
+                    node.state.procedure[0].selected = false;
+                    node.state.procedure = [];
                 }
             }
             else if (pastingPlace.children) {
                 for (var i = 0; i < this.copiedProd.length; i++) {
                     console.log('pasting', this.copiedProd[i].ID);
-                    _models_node__WEBPACK_IMPORTED_MODULE_1__["NodeUtils"].paste_procedure(this.dataService.node, this.copiedProd[i]);
-                    this.dataService.node.state.procedure[0].selected = false;
+                    _models_node__WEBPACK_IMPORTED_MODULE_1__["NodeUtils"].paste_procedure(node, this.copiedProd[i]);
+                    node.state.procedure[0].selected = false;
                     pastingPlace.selected = true;
-                    this.dataService.node.state.procedure = [pastingPlace];
+                    node.state.procedure = [pastingPlace];
                 }
             }
             else {
                 for (var i = this.copiedProd.length - 1; i >= 0; i--) {
                     console.log('pasting', this.copiedProd[i].ID);
-                    _models_node__WEBPACK_IMPORTED_MODULE_1__["NodeUtils"].paste_procedure(this.dataService.node, this.copiedProd[i]);
-                    this.dataService.node.state.procedure[0].selected = false;
+                    _models_node__WEBPACK_IMPORTED_MODULE_1__["NodeUtils"].paste_procedure(node, this.copiedProd[i]);
+                    node.state.procedure[0].selected = false;
                     pastingPlace.selected = true;
-                    this.dataService.node.state.procedure = [pastingPlace];
+                    node.state.procedure = [pastingPlace];
                 }
             }
             // this.copiedProd = undefined;
@@ -5578,7 +5783,17 @@ var ViewEditorComponent = /** @class */ (function () {
         }
     };
     ViewEditorComponent.prototype.emitHelpText = function (event) {
-        this.helpText.emit(event);
+        if (typeof (event) === 'string') {
+            for (var _i = 0, _a = this.dataService.flowchart.functions; _i < _a.length; _i++) {
+                var func = _a[_i];
+                if (func.name === event) {
+                    this.helpText.emit(func.doc);
+                }
+            }
+        }
+        else {
+            this.helpText.emit(event);
+        }
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
